@@ -1,0 +1,142 @@
+#Hiển thị ảnh
+	import  cv2
+	imgFile = cv2.imread('girl_xinh.jpg',0)
+	cv2.imshow('image',imgFile)
+	cv2.waitKey(0)#dừng ảnh theo mili giây
+	cv2.destroyAllWindows()
+#Chuyển xám 
+	import  cv2
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+	img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+	cv2.imshow("Anh xam",img_gray)
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+#Kích thước ảnh
+	import  cv2
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+	img_rs = cv2.resize(img,dsize=(100,200))//(dsize=None,fx=2,fy=2)-> tăng kích thước chiều x,y lên 2 lần
+	cv2.imshow('Anh rs',img_rs)
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+
+#Nhị phân màu đen trắng 
+	import  cv2
+	import imutils
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+
+	gray_img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+	ret,thresh_binary = cv2.threshold(gray_img,127,255,cv2.THRESH_BINARY)
+	cv2.imshow('Anh thresh',thresh_binary)
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+
+#Tìm cạnh của ảnh
+	import  cv2
+	import imutils
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+	
+	gray_img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+	edges = cv2.Canny(gray_img,threshold1=100,threshold2=200)
+	cv2.imshow("Anh edges",edges)
+
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+#Làm mờ ảnh
+	import  cv2
+	import imutils
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+
+	blur = cv2.GaussianBlur(img,ksize=(15,15),sigmaX=0)
+	cv2.imshow("Anh Blur",blur)
+
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+#Vẽ hcn
+	import  cv2
+	img = cv2.imread("girl_xinh.jpg")
+	cv2.imshow('Anh mau',img)
+	cv2.waitKey()
+
+	rectangle = cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)
+	#hình tròn circle =  cv2.circle(img,(447,63), 63, (0,0,255), -2)
+	#hinhfelip img = cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+	#đa giác ( thêm thư viện import numpy as np)
+		pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
+		pts = pts.reshape((-1,1,2))
+		img = cv2.polylines(img,[pts],True,(0,255,255))
+	
+	cv2.imshow("Anh rectangle",rectangle)
+
+	cv2.waitKey()
+	cv2.destroyAllWindows()
+#Đếm 
+	import cv2
+	import numpy as np
+
+	img = cv2.imread("colorfull_ballon.jpg")
+
+	grises= cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+	bordes= cv2.Canny(grises, 100, 250)
+
+	ctns = cv2.findContours(bordes, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	ctns = ctns[0] if len(ctns)==2 else ctns[1]
+	for c in ctns:
+   	 	cv2.drawContours(img,[c], -1,(0,0,255),2)
+
+	print ('Numero de contornos es ', len(ctns))
+	#texto= 'Contornos encontrados ' + str(len(ctns))
+
+	#cv2.putText(img, texto, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7,  
+    	#(255, 0, 0), 1)
+
+
+	#cv2.imshow('Bordes', bordes)
+	cv2.imshow('Imagen', img)
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()
+
+#hiện thị kích thước
+	import numpy as np
+	import cv2
+	image = cv2.imread("girl_xinh.jpg",1)
+	cv2.imshow("Huoq", image)
+	print ("width: %d pixels"% (image.shape[1]))
+	print ("height: %d pixels" % (image.shape[0]))
+	print ("channels: %d channels" % (image.shape[0]))
+	cv2.imwrite("anhGray.jpg",image)
+	cv2.destroyAllWindows()
+#Biểu đồ 2D
+	import numpy as np
+	import cv2 as cv
+	from matplotlib import pyplot as plt
+	img = cv.imread('girl_xinh.jpg')
+	cv.imshow('Huơq',img)
+	hsv = cv.cvtColor(img,cv.COLOR_BGR2HSV)
+	hist = cv.calcHist( [hsv], [0, 1], None, [180, 256], [0, 180, 0, 256] )
+	plt.imshow(hist,interpolation = 'nearest')
+	plt.show()
+#Tìm,Vẽ,Phân tích
+	import numpy as np
+	import cv2 as cv
+	from matplotlib import pyplot as plt
+	img = cv.imread('girl_xinh.jpg')
+	cv.imshow('Huơq',img)
+	color = ('b','g','r')
+	for i,col in enumerate(color):
+   	 	histr = cv.calcHist([img],[i],None,[256],[0,256])
+   		plt.plot(histr,color = col)
+    		plt.xlim([0,256])
+	plt.show()
