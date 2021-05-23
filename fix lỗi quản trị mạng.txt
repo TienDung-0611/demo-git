@@ -1,0 +1,3 @@
+vboxmanage storageattach "NAME OF THE VM" --storagectl "SATA" --port 1 --device 1 --medium none
+
+https://forums.virtualbox.org/viewtopic.php?f=3&t=82254
